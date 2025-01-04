@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="global-container">
         <div class="card login-form blur-sm">
             <div class="card-body">
-                <h1 class="card-title text-center text-dark">My Daily Journal</h1>
+                <h1 class="card-title text-center text-dark"> Welcome to My Daily Journal</h1>
             </div>
            
           <div class="profile-image me-4 position-absolute start-50 translate-middle" style="top:37%; width:120px">
