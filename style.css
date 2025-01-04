@@ -1,0 +1,41 @@
+.heroimg{
+    background-image: url('img/img3.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.heroimg{
+    text-shadow: 2px 2px 8px black;
+}
+
+.cardGroup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.card {
+    min-height: 350px; /* Misalkan untuk memastikan semua card minimal setinggi ini */
+}
+
+.card-group a{
+    /* border: solid red; */
+    text-decoration: none;
+    height: 100%;
+}
+
+.row {
+    display: flex;
+    align-items: stretch; /* Semua card memiliki tinggi yang sama */
+  }
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
