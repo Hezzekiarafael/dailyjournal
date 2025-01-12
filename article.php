@@ -161,10 +161,10 @@ if (isset($_POST['hapus'])) {
     $stmt->bind_param("i", $id);
     $hapus = $stmt->execute();
 
-    if ($hapus) {
+    if ($hapus) {   
         echo "<script>
             alert('Hapus data sukses');
-            document.location='admin.php?page=article';
+            document.location='admin.           php?page=article';
         </script>";
     } else {
         echo "<script>

@@ -82,7 +82,7 @@ include "koneksi.php";
       while($row = $hasil->fetch_assoc()){
       ?>
         <div class="col">
-          <div class="card h-100">
+          <div class="card h-100" style="box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1); border: 2px solid #ddd; border-radius: 8px; ">
             <img src="img/<?= $row["gambar"]?>" class="card-img-top" alt="..." />
             <div class="card-body">
               <h5 class="card-title"><?= $row["judul"]?></h5>
@@ -104,24 +104,34 @@ include "koneksi.php";
   </div>
 </section>
 <!-- article end -->
-
+ 
 <!-- gallery -->
 <section id="gallery" class="text-center p-5">
-<h1 class="fw-bold display-4 pb-3">Gallery</h1>
+  <h1 class="fw-bold display-4 pb-3">Gallery</h1>
   <div class="content m-5">
-    <div class="gallery container">
+    <div class="gallery container" >
         <div class="carouselImage">
           <div id="carouselExample" class="carousel slide">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="img/img1.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-inner" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border: 1px solid #ddd; border-radius: 8px;">
+              <?php
+              // Mengambil data gambar dari gallery.php (asumsi data ada dalam tabel gallery)
+              $sql_gallery = "SELECT * FROM gallery ORDER BY tanggal DESC";
+              $hasil_gallery = $conn->query($sql_gallery);
+              
+              // Menampilkan gambar di dalam carousel
+              $active_class = 'active'; // Menandai gambar pertama dengan 'active'
+              if ($hasil_gallery->num_rows > 0) {
+                  while ($row_gallery = $hasil_gallery->fetch_assoc()) {
+              ?>
+              <div class="carousel-item <?= $active_class ?>">
+                <img src="img/<?= $row_gallery['gambar'] ?>" class="d-block w-100" alt="...">
               </div>
-              <div class="carousel-item">
-                <img src="img/img2.jpg" class="d-block w-100" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/img4.jpg" class="d-block w-100" alt="...">
-              </div>
+              <?php
+                  // Hapus tanda active setelah item pertama
+                  $active_class = '';
+                  }
+              }
+              ?>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -133,43 +143,38 @@ include "koneksi.php";
             </button>
           </div>
         </div>
+
         <div class="cardGallery mt-5 container">
-          <div class="card-group mx-auto p-2">
-            <div class="card" style="width: 18rem;">
-              <img src="img/img2.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <p class="card-text">Picture 1</p>
-              </div>
+        <div class="caer card-group mb-3" style="display:flex; flex-wrap:wrap; gap: 15px; ">
+            <?php
+            // Menampilkan gambar di dalam gallery cards
+            $hasil_gallery->data_seek(0);  // Reset pointer ke awal
+            if ($hasil_gallery->num_rows > 0) {
+                while ($row_gallery = $hasil_gallery->fetch_assoc()) {
+            ?>
+            <div class="crip card h-50" style="width: calc(25% - 15px); max-height: 300px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border: 1px solid #ddd; border-radius: 8px;">
+              <img src="img/<?= $row_gallery['gambar'] ?>" class="card-img-top" alt="..." style="max-height: 200px; object-fit: cover;">
             </div>
-            <div class="card" style="width: 18rem;">
-              <img src="img/img4.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <p class="card-text">Picture 2</p>
-              </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-              <img src="img/img1.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <p class="card-text">Picture 3</p>
-              </div>
-            </div>
+            <?php
+                }
+            }
+            ?>
           </div>
         </div>
       </div>
-</div>
+  </div>
 </section>
-
 <!-- gallery end -->
 
   <!-- schedule -->
   <section id="schedule" class="text-center p-5">
     <h1 class="fw-bold display-4 pb-5">Shcedule</h1>
   <article>
-      <div class="articleSection container border">
+      <div class="articleSection container ">
           <div class="scheduleCard container">
               <div class="row row-cols-1 row-cols-md-4 g-4 text-center d-flex justify-content-start">
                   <div class="col">
-                    <div class="card border-primary mb-3" style="max-width: 18rem;min-height: 10rem; ">
+                    <div class="card border-primary mb-3" style="max-width: 18rem;min-height: 10rem; box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1); border: 2px solid #ddd; border-radius: 8px;">
                       <div class="card-header fw-bold bg-primary text-light">Senin</div>
                       <div class="card-body text-dark">
                         <p class="card-title fw-bold">10:20 - 12:00</p>
@@ -180,7 +185,7 @@ include "koneksi.php";
                     </div>
                   </div>
                   <div class="col">
-                    <div class="card border-danger mb-3" style="max-width: 18rem;min-height: 10rem; ">
+                    <div class="card border-danger mb-3" style="max-width: 18rem;min-height: 10rem; box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1); border: 2px solid #ddd; border-radius: 8px; ">
                       <div class="card-header fw-bold bg-danger text-light">Selasa</div>
                       <div class="card-body text-dark">
                         <p class="card-title fw-bold">10:20 - 12:00</p>
@@ -191,7 +196,7 @@ include "koneksi.php";
                     </div>
                   </div>
                   <div class="col">
-                    <div class="card border-warning mb-3" style="max-width: 18rem;min-height: 10rem; ">
+                    <div class="card border-warning mb-3" style="max-width: 18rem;min-height: 10rem; box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1); border: 2px solid #ddd; border-radius: 8px; ">
                       <div class="card-header fw-bold bg-warning text-light">Rabu</div>
                       <div class="card-body text-dark">
                         <p class="card-title fw-bold">09:30 - 12:00</p>
@@ -202,7 +207,7 @@ include "koneksi.php";
                     </div>
                   </div>
                   <div class="col">
-                    <div class="card border-success mb-3" style="max-width: 18rem;min-height: 10rem; ">
+                    <div class="card border-success mb-3" style="max-width: 18rem;min-height: 10rem; box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1); border: 2px solid #ddd; border-radius: 8px; ">
                       <div class="card-header fw-bold bg-success text-light">Kamis</div>
                       <div class="card-body text-dark">
                         <p class="card-title fw-bold">09:30 - 12:00</p>
@@ -213,7 +218,7 @@ include "koneksi.php";
                     </div>
                   </div>
                   <div class="col h-100">
-                    <div class="card h-100 border-info mb-3" style="max-width: 18rem;min-height: 13rem;">
+                    <div class="card h-100 border-info mb-3" style="max-width: 18rem;min-height: 13rem; box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1); border: 2px solid #ddd; border-radius: 8px;">
                       <div class="card-header fw-bold bg-info text-light">Jumat</div>
                       <div class="card-body text-dark">
                         <p class="card-title fw-bold">15:30 - 18:00</p>
@@ -223,7 +228,7 @@ include "koneksi.php";
                   </div>
                   
                   <div class="col">
-                    <div class="card border-dark mb-3" style="max-width: 18rem;min-height: 13rem;">
+                    <div class="card border-dark mb-3" style="max-width: 18rem;min-height: 13rem; box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1); border: 2px solid #ddd; border-radius: 8px;">
                       <div class="card-header fw-bold bg-dark text-light">Sabtu</div>
                       <div class="card-body text-dark d-flex align-items-center justify-content-center">
                         <p class="card-title fw-bold">Jadwal Kosong</p>
@@ -231,7 +236,7 @@ include "koneksi.php";
                     </div>
                   </div>
                   <div class="col">
-                    <div class="card border-secondary mb-3" style="max-width: 18rem;min-height: 13rem;">
+                    <div class="card border-secondary mb-3" style="max-width: 18rem;min-height: 13rem; box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1); border: 2px solid #ddd; border-radius: 8px;">
                       <div class="card-header fw-bold bg-secondary text-light">Minggu</div>
                       <div class="card-body text-dark d-flex align-items-center justify-content-center">
                         <p class="card-title fw-bold">Jadwal Kosong</p>
@@ -348,5 +353,6 @@ include "koneksi.php";
 
 </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
   </body>
 </html>

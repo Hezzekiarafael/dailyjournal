@@ -2,10 +2,14 @@
 //query untuk mengambil data article
 $sql1 = "SELECT * FROM article ORDER BY tanggal DESC";
 $hasil1 = $conn->query($sql1);
+// Gallery
+$sql_gallery = "SELECT * FROM gallery";
+$hasil_gallery = $conn->query($sql_gallery);
+$jumlah_gallery = $hasil_gallery->num_rows;
 
 //menghitung jumlah baris data article
 $jumlah_article = $hasil1->num_rows;
-$jumlah_gallery = 0;
+$jumlah_gallery = $hasil_gallery->num_rows;
 
 //query untuk mengambil data gallery
 //$sql2 = "SELECT * FROM gallery ORDER BY tanggal DESC";

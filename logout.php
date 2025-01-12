@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+// Menghapus semua session
+session_unset();
 session_destroy();
-header("location:login.php"); 
+
+// Redirect ke halaman login
+header("Location: login.php");
+exit();
 ?>

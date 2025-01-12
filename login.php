@@ -2,55 +2,44 @@
 //memulai session atau melanjutkan session yang sudah ada
 session_start();
 
+
 //menyertakan code dari file koneksi
 include "koneksi.php";
 
+
 //check jika sudah ada user yang login arahkan ke halaman admin
 if (isset($_SESSION['username'])) { 
-	header("location:admin.php"); 
+  header("location:admin.php"); 
 }
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $username = $_POST['user'];
-  
-  //menggunakan fungsi enkripsi md5 supaya sama dengan password  yang tersimpan di database
-  $password = md5($_POST['pass']);
+  $username = trim($_POST['user']);
+  $password = trim($_POST['pass']);
 
-	//prepared statement
-  $stmt = $conn->prepare("SELECT username 
-                          FROM user 
-                          WHERE username=? AND password=?");
-
-	//parameter binding 
-  $stmt->bind_param("ss", $username, $password);//username string dan password string
-  
-  //database executes the statement
+  // Query untuk mengambil username dan password
+  $stmt = $conn->prepare("SELECT username, password FROM user WHERE username = ?");
+  $stmt->bind_param("s", $username);
   $stmt->execute();
+  $result = $stmt->get_result();
   
-  //menampung hasil eksekusi
-  $hasil = $stmt->get_result();
-  
-  //mengambil baris dari hasil sebagai array asosiatif
-  $row = $hasil->fetch_array(MYSQLI_ASSOC);
+  if ($result->num_rows > 0) {
+      $row = $result->fetch_assoc();
 
-  //check apakah ada baris hasil data user yang cocok
-  if (!empty($row)) {
-    //jika ada, simpan variable username pada session
-    $_SESSION['username'] = $row['username'];
-
-    //mengalihkan ke halaman admin
-    header("location:admin.php");
+      // Cocokkan password dengan password hash di database
+      if (md5($password) == $row['password']) {  
+          $_SESSION['username'] = $row['username'];
+          header("location:admin.php");
+          exit;
+      } else {
+          echo "<script>alert('Password salah!');</script>";
+      }
   } else {
-	  //jika tidak ada (gagal), alihkan kembali ke halaman login
-    header("location:login.php");
-
+      echo "<script>alert('Username tidak ditemukan!');</script>";
   }
 
-	//menutup koneksi database
   $stmt->close();
   $conn->close();
-} else {
+}
 ?>
 
 
@@ -68,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="global-container">
         <div class="card login-form blur-sm">
             <div class="card-body">
-                <h1 class="card-title text-center text-dark"> Welcome to My Daily Journal</h1>
+                <h1 class="card-title text-center text-dark">My Daily Journal</h1>
             </div>
            
           <div class="profile-image me-4 position-absolute start-50 translate-middle" style="top:37%; width:120px">
@@ -99,6 +88,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </body>
 </html>
-<?php
-}
-?>
+

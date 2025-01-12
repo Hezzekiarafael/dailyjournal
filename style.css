@@ -39,3 +39,38 @@
     flex-direction: column;
     min-height: 100vh;
 }
+
+.caer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Jarak antar-kartu */
+  }
+
+.crip {
+    flex: 1 1 calc(25% - 15px); /* Lebar kartu: 25% dari container dengan gap */
+    max-width: calc(25% - 15px); /* Pastikan kartu tidak meluas */
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd; /* Bingkai kartu */
+    border-radius: 8px; /* Sudut kartu */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Bayangan */
+    overflow: hidden; /* Hilangkan konten yang keluar */
+    background: #fff; /* Latar belakang kartu */
+    transition: transform 0.3s ease; /* Efek hover */
+  }
+.crip:hover {
+    transform: scale(1.02); /* Sedikit perbesar saat hover */
+  }
+  
+.crip-img-top {
+    width: 100%;
+    height: 200px; /* Tinggi tetap untuk gambar */
+    object-fit: cover; /* Gambar menyesuaikan proporsi */
+  }
+.col{
+    transition: transform 0.3s ease; /* Efek hover */
+}
+.col:hover {
+    transform: scale(1.02); /* Sedikit perbesar saat hover */
+}
